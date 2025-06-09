@@ -1,0 +1,45 @@
+#=========================================================================
+# ugpe_v1
+#=========================================================================
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : UGPE_v1
+clock_period : 3.0
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - UGPE_v1_test_ugpe_basic
+ - UGPE_v1_test_ugpe_basic_delay
+ - UGPE_v1_test_ugpe_hit_at_boundary
+ - UGPE_v1_test_ugpe_hit_at_boundary_delay
+ - UGPE_v1_test_ugpe_multi_match
+ - UGPE_v1_test_ugpe_multi_match_delay
+ - UGPE_v1_test_ugpe_multi_mismatch
+ - UGPE_v1_test_ugpe_multi_mismatch_delay
+ - UGPE_v1_test_ugpe_random
+ - UGPE_v1_test_ugpe_random_delay
+
+
+
+ 
+

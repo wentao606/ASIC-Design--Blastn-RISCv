@@ -1,0 +1,54 @@
+#=========================================================================
+# lab2-px-sort
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#  
+#  % mkdir -p $TOPDIR/app/build
+#  % cd $TOPDIR/app/build
+#  % ../configure --host=riscv32-unknown-elf
+#
+#  % make ubmark-sort-xcel-test
+#  % ../../sim/pmx/pmx-sim --proc-impl rtl --xcel-impl sort-rtl \
+#      --translate --dump-vtb ./ubmark-sort-xcel-test
+#
+#  % make ubmark-sort-xcel-eval
+#  % ../../sim/pmx/pmx-sim --proc-impl rtl --xcel-impl sort-rtl \
+#      --stats --translate --dump-vtb ./ubmark-sort-xcel-eval
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../app/build
+design_name  : ProcXcel_sort_rtl
+clock_period : 3.0
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - ProcXcel_sort_rtl_pmx-sim-sort-rtl-ubmark-sort-xcel-test
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - ProcXcel_sort_rtl_pmx-sim-sort-rtl-ubmark-sort-xcel-eval
+

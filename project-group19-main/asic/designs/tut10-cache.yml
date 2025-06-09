@@ -1,0 +1,158 @@
+#=========================================================================
+# tut10-cache
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPDIR/sim/build
+#  % cd $TOPDIR/sim/build
+#  % pytest ../cache/test --test-verilog --dump-vtb
+#
+#  % ../cache/mem-sim --impl rtl --input loop3 \
+#      --translate --dump-vtb
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 00-openram-memgen
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : Cache_noparam
+clock_period : 3.0
+
+#-------------------------------------------------------------------------
+# srams
+#-------------------------------------------------------------------------
+
+sram_dir : ../../../sim/sram
+srams:
+ - SRAM_32x256_1rw
+ - SRAM_128x256_1rw
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+
+ - Cache_noparam_test_generic_write_init_word
+ - Cache_noparam_test_generic_write_init_multi_word
+ - Cache_noparam_test_generic_write_init_cacheline
+ - Cache_noparam_test_generic_write_init_multi_cacheline
+ - Cache_noparam_test_generic_write_init_multi_word_sink_delay
+ - Cache_noparam_test_generic_write_init_multi_word_src_delay
+
+ - Cache_noparam_test_generic_read_hit_word
+ - Cache_noparam_test_generic_read_hit_multi_word
+ - Cache_noparam_test_generic_read_hit_cacheline
+ - Cache_noparam_test_generic_read_hit_multi_cacheline
+ - Cache_noparam_test_generic_read_hit_multi_word_sink_delay
+ - Cache_noparam_test_generic_read_hit_multi_word_src_delay
+
+ - Cache_noparam_test_generic_write_hit_word
+ - Cache_noparam_test_generic_write_hit_multi_word
+ - Cache_noparam_test_generic_write_hit_cacheline
+ - Cache_noparam_test_generic_write_hit_multi_cacheline
+ - Cache_noparam_test_generic_write_hit_multi_word_sink_delay
+ - Cache_noparam_test_generic_write_hit_multi_word_src_delay
+
+ - Cache_noparam_test_generic_read_miss_word
+ - Cache_noparam_test_generic_read_miss_multi_word
+ - Cache_noparam_test_generic_read_miss_cacheline
+ - Cache_noparam_test_generic_read_miss_multi_cacheline
+ - Cache_noparam_test_generic_read_miss_multi_word_sink_delay
+ - Cache_noparam_test_generic_read_miss_multi_word_src_delay
+
+ - Cache_noparam_test_generic_write_miss_word
+ - Cache_noparam_test_generic_write_miss_multi_word
+ - Cache_noparam_test_generic_write_miss_cacheline
+ - Cache_noparam_test_generic_write_miss_multi_cacheline
+ - Cache_noparam_test_generic_write_miss_multi_word_sink_delay
+ - Cache_noparam_test_generic_write_miss_multi_word_src_delay
+
+ - Cache_noparam_test_generic_evict_word
+ - Cache_noparam_test_generic_evict_multi_word
+ - Cache_noparam_test_generic_evict_cacheline
+ - Cache_noparam_test_generic_evict_multi_cacheline
+ - Cache_noparam_test_generic_evict_multi_word_sink_delay
+ - Cache_noparam_test_generic_evict_multi_word_src_delay
+
+ - Cache_noparam_test_generic_check_valid_bit
+ - Cache_noparam_test_generic_evict_more
+ - Cache_noparam_test_generic_read_stream
+ - Cache_noparam_test_generic_write_stream
+ - Cache_noparam_test_generic_read_stream_mem_delay
+ - Cache_noparam_test_generic_write_stream_mem_delay
+
+ - Cache_noparam_test_random_random_reads
+ - Cache_noparam_test_random_random_hits
+ - Cache_noparam_test_random_random_misses
+ - Cache_noparam_test_random_random_hits_delays
+ - Cache_noparam_test_random_random_misses_delays
+
+ - Cache_noparam_test_sassoc_sassoc_no_conflict
+ - Cache_noparam_test_sassoc_sassoc_long
+
+ - Cache_noparam_test_subword_read_hit_byte
+ - Cache_noparam_test_subword_read_hit_hword
+ - Cache_noparam_test_subword_read_hit_cacheline_byte
+ - Cache_noparam_test_subword_read_hit_cacheline_hword
+
+ - Cache_noparam_test_subword_write_hit_byte
+ - Cache_noparam_test_subword_write_hit_hword
+ - Cache_noparam_test_subword_write_hit_cacheline_byte
+ - Cache_noparam_test_subword_write_hit_cacheline_hword
+
+ - Cache_noparam_test_subword_read_miss_byte
+ - Cache_noparam_test_subword_read_miss_hword
+ - Cache_noparam_test_subword_read_miss_cachelines_byte
+ - Cache_noparam_test_subword_read_miss_cachelines_hword
+
+ - Cache_noparam_test_subword_write_miss_byte
+ - Cache_noparam_test_subword_write_miss_hword
+
+ - Cache_noparam_test_subword_evict_byte
+ - Cache_noparam_test_subword_evict_hword
+
+ - Cache_noparam_test_subword_random_random
+
+ - Cache_noparam_test_wide_read_hit_8B
+ - Cache_noparam_test_wide_read_hit_16B
+ - Cache_noparam_test_wide_read_hit_cacheline_8B
+
+ - Cache_noparam_test_wide_write_hit_8B
+ - Cache_noparam_test_wide_write_hit_16B
+ - Cache_noparam_test_wide_write_hit_cacheline_8B
+
+ - Cache_noparam_test_wide_read_miss_8B
+ - Cache_noparam_test_wide_read_miss_16B
+ - Cache_noparam_test_wide_read_miss_cachelines_8B
+
+ - Cache_noparam_test_wide_write_miss_8B
+ - Cache_noparam_test_wide_write_miss_16B
+
+ - Cache_noparam_test_wide_evict_8B
+ - Cache_noparam_test_wide_evict_16B
+
+ - Cache_noparam_test_wide_random_random
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - Cache_noparam_mem-rtl-loop3

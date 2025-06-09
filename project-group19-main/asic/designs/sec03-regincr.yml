@@ -1,0 +1,51 @@
+#=========================================================================
+# sec03-regincr
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPDIR/sim/build
+#  % cd $TOPDIR/sim/build
+#  % pytest ../tut3_verilog/regincr  --test-verilog --dump-vtb
+#  % ../tut3_verilog/regincr/regincr-sim 0xff 0x20 0x30 0x04 0x00
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : RegIncrNstage__p_nstages_4
+clock_period : 1.0
+dump_vcd     : true
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - RegIncrNstage__p_nstages_4_test_4stage_large
+ - RegIncrNstage__p_nstages_4_test_4stage_overflow
+ - RegIncrNstage__p_nstages_4_test_4stage_random
+ - RegIncrNstage__p_nstages_4_test_4stage_small
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - RegIncrNstage__p_nstages_4_regincr-sim-basic
+

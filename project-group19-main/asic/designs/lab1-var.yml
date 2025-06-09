@@ -1,0 +1,71 @@
+#=========================================================================
+# lab1-var
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPDIR/sim/build
+#  % cd $TOPDIR/sim/build
+#  % pytest ../lab1_imul/test/IntMulVar_test.py \
+#      --test-verilog --dump-vtb
+#
+#  % ../lab1_imul/imul-sim --impl var --input small \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl var --input large \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl var --input sparse \
+#      --translate --dump-vtb
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : IntMulVar
+clock_period : 0.7
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - IntMulVar_test_small_pos_pos
+ - IntMulVar_test_small_neg_pos
+ - IntMulVar_test_small_pos_neg
+ - IntMulVar_test_small_neg_neg
+ - IntMulVar_test_large_pos_pos
+ - IntMulVar_test_large_neg_neg
+ - IntMulVar_test_zeros
+ - IntMulVar_test_random_himask
+ - IntMulVar_test_random_small
+ - IntMulVar_test_random_large
+ - IntMulVar_test_random_lomask
+ - IntMulVar_test_random_lohimask
+ - IntMulVar_test_random_sparse
+ - IntMulVar_test_random_large_sink40
+ - IntMulVar_test_random_large_src40
+ - IntMulVar_test_random_small_sink40
+ - IntMulVar_test_random_small_src40
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - IntMulVar_imul-var-large
+ - IntMulVar_imul-var-small
+ - IntMulVar_imul-var-sparse

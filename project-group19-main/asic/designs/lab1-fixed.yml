@@ -1,0 +1,71 @@
+#=========================================================================
+# lab1-fixed
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPDIR/sim/build
+#  % cd $TOPDIR/sim/build
+#  % pytest ../lab1_imul/test/IntMulFixed_test.py \
+#      --test-verilog --dump-vtb
+#
+#  % ../lab1_imul/imul-sim --impl fixed --input small \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl fixed --input large \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl fixed --input sparse \
+#      --translate --dump-vtb
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : IntMulFixed
+clock_period : 0.7
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - IntMulFixed_test_small_pos_pos
+ - IntMulFixed_test_small_neg_pos
+ - IntMulFixed_test_small_pos_neg
+ - IntMulFixed_test_small_neg_neg
+ - IntMulFixed_test_large_pos_pos
+ - IntMulFixed_test_large_neg_neg
+ - IntMulFixed_test_zeros
+ - IntMulFixed_test_random_himask
+ - IntMulFixed_test_random_small
+ - IntMulFixed_test_random_large
+ - IntMulFixed_test_random_lomask
+ - IntMulFixed_test_random_lohimask
+ - IntMulFixed_test_random_sparse
+ - IntMulFixed_test_random_large_sink40
+ - IntMulFixed_test_random_large_src40
+ - IntMulFixed_test_random_small_sink40
+ - IntMulFixed_test_random_small_src40
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - IntMulFixed_imul-fixed-large
+ - IntMulFixed_imul-fixed-small
+ - IntMulFixed_imul-fixed-sparse

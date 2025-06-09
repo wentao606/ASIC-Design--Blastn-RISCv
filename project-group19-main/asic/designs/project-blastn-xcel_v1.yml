@@ -1,0 +1,76 @@
+#=========================================================================
+# blastn-xcel_v1
+#=========================================================================
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : BlastnXcel_v1
+clock_period : 5.0
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - BlastnXcel_v1_test_ugpe_basic
+ - BlastnXcel_v1_test_ugpe_basic_delay
+ - BlastnXcel_v1_test_ugpe_full_random
+ - BlastnXcel_v1_test_ugpe_part_mid_match_from_start
+ - BlastnXcel_v1_test_ugpe_part_mid_match_from_mid
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_start
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_mid
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_end
+ - BlastnXcel_v1_test_ugpe_all_mismatch_start
+ - BlastnXcel_v1_test_ugpe_all_mismatch_mid
+ - BlastnXcel_v1_test_ugpe_all_mismatch_edge
+ - BlastnXcel_v1_test_ugpe_all_match_start
+ - BlastnXcel_v1_test_ugpe_all_match_mid
+ - BlastnXcel_v1_test_ugpe_all_match_edge
+ - BlastnXcel_v1_test_ugpe_full_random_delay
+ - BlastnXcel_v1_test_ugpe_part_mid_match_from_start_delay
+ - BlastnXcel_v1_test_ugpe_part_mid_match_from_mid_delay
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_start_delay
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_mid_delay
+ - BlastnXcel_v1_test_ugpe_part_start_match_from_end_delay
+ - BlastnXcel_v1_test_ugpe_all_mismatch_start_delay
+ - BlastnXcel_v1_test_ugpe_all_mismatch_mid_delay
+ - BlastnXcel_v1_test_ugpe_all_mismatch_edge_delay
+ - BlastnXcel_v1_test_ugpe_all_match_start_delay
+ - BlastnXcel_v1_test_ugpe_all_match_mid_delay
+ - BlastnXcel_v1_test_ugpe_all_match_edge_delay
+
+ #-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+evals:
+ - BlastnXcel_v1_xcel-rtl-basic
+ - BlastnXcel_v1_xcel-rtl-full_random
+ - BlastnXcel_v1_xcel-rtl-part_mid_match_from_start
+ - BlastnXcel_v1_xcel-rtl-part_mid_match_from_mid
+ - BlastnXcel_v1_xcel-rtl-part_start_match_from_start
+ - BlastnXcel_v1_xcel-rtl-part_start_match_from_mid
+ - BlastnXcel_v1_xcel-rtl-part_start_match_from_end
+ - BlastnXcel_v1_xcel-rtl-all_mismatch_start
+ - BlastnXcel_v1_xcel-rtl-all_mismatch_mid
+ - BlastnXcel_v1_xcel-rtl-all_mismatch_edge
+ - BlastnXcel_v1_xcel-rtl-all_match_start
+ - BlastnXcel_v1_xcel-rtl-all_match_mid
+ - BlastnXcel_v1_xcel-rtl-all_match_edge
+

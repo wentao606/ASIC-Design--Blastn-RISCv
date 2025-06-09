@@ -1,0 +1,71 @@
+#=========================================================================
+# lab1-1stage
+#=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPDIR/sim/build
+#  % cd $TOPDIR/sim/build
+#  % pytest ../lab1_imul/test/IntMulNstage_test.py -k 1stage \
+#      --test-verilog --dump-vtb
+#
+#  % ../lab1_imul/imul-sim --impl nstage --nstages 1 --input small \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl nstage --nstages 1 --input large \
+#      --translate --dump-vtb
+#  % ../lab1_imul/imul-sim --impl nstage --nstages 1 --input sparse \
+#      --translate --dump-vtb
+#
+
+#-------------------------------------------------------------------------
+# steps
+#-------------------------------------------------------------------------
+
+steps:
+ - 01-synopsys-vcs-rtlsim
+ - 02-synopsys-dc-synth
+ - 03-synopsys-vcs-ffglsim
+ - 04-cadence-innovus-pnr
+ - 05-synopsys-vcs-baglsim
+ - 06-synopsys-pt-pwr
+ - 07-summarize-results
+
+#-------------------------------------------------------------------------
+# variables
+#-------------------------------------------------------------------------
+
+src_dir      : ../../../sim/build
+design_name  : IntMulNstage__1stage
+clock_period : 10
+
+#-------------------------------------------------------------------------
+# tests
+#-------------------------------------------------------------------------
+
+tests:
+ - IntMulNstage__1stage_test_1stage_small_pos_pos
+ - IntMulNstage__1stage_test_1stage_small_neg_pos
+ - IntMulNstage__1stage_test_1stage_small_pos_neg
+ - IntMulNstage__1stage_test_1stage_small_neg_neg
+ - IntMulNstage__1stage_test_1stage_large_pos_pos
+ - IntMulNstage__1stage_test_1stage_large_neg_neg
+ - IntMulNstage__1stage_test_1stage_zeros
+ - IntMulNstage__1stage_test_1stage_random_himask
+ - IntMulNstage__1stage_test_1stage_random_small
+ - IntMulNstage__1stage_test_1stage_random_large
+ - IntMulNstage__1stage_test_1stage_random_lomask
+ - IntMulNstage__1stage_test_1stage_random_lohimask
+ - IntMulNstage__1stage_test_1stage_random_sparse
+ - IntMulNstage__1stage_test_1stage_random_large_sink40
+ - IntMulNstage__1stage_test_1stage_random_large_src40
+ - IntMulNstage__1stage_test_1stage_random_small_sink40
+ - IntMulNstage__1stage_test_1stage_random_small_src40
+
+#-------------------------------------------------------------------------
+# evals
+#-------------------------------------------------------------------------
+
+# evals:
+#  - IntMulNstage__1stage_imul-1stage-large
+#  - IntMulNstage__1stage_imul-1stage-small
+#  - IntMulNstage__1stage_imul-1stage-sparse
